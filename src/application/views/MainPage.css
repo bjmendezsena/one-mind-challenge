@@ -1,0 +1,18 @@
+.MainPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.title {
+  justify-content: center;
+  text-align: center;
+}
+.header-page {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}

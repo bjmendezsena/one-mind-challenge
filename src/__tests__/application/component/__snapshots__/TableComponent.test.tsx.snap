@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header tests Should render the component 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addUser": [Function],
+      "animals": Array [],
+      "error": null,
+      "getAllAnimals": [Function],
+      "getAllUsers": [Function],
+      "isLoading": false,
+      "removeUser": [Function],
+      "selectedAnimal": "",
+      "setSelectedAnimal": [Function],
+      "users": Array [],
+    }
+  }
+>
+  <TableComponent />
+</ContextProvider>
+`;

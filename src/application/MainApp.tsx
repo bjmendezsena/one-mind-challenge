@@ -1,31 +1,20 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import "./MainApp.css";
-import { fetchAllAnimals } from "./services/dataService";
+import { AppProvider } from "./context/UserContext";
+import { MainPage } from "./views/MainPage";
+
+interface IGlobalStateProps {
+  children: JSX.Element;
+}
+const GlobalState = ({ children }: IGlobalStateProps) => (
+  <AppProvider>{children}</AppProvider>
+);
 
 const MainApp: FC = () => {
-  const [animals, setAnimals] = useState<string[]>([]);
-  useEffect(() => {
-    getAnimals();
-  }, []);
-
-  const getAnimals = async () => {
-    fetchAllAnimals().then(setAnimals);
-  };
-
-  console.log(animals);
-
-  if (!animals.length) {
-    return <div>No hay animales para mostrar</div>;
-  }
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {React.Children.toArray(animals.map((animal) => <span>{animal}</span>))}
-    </div>
+    <GlobalState>
+      <MainPage />
+    </GlobalState>
   );
 };
 

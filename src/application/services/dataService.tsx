@@ -6,17 +6,11 @@ const dataUrl = "/data";
 const fetchAllAnimals = async () => {
   try {
     const response = await http.get<UserInterface[]>(dataUrl);
-    const animalResponse = response
-      .map((user) => user.animals)
-      .reduce((acum, current) => {
-        acum = [...acum, ...current];
-        return acum;
-      }, []);
-
+    const animalResponse = response.map((user) => user.animals).flat();
     const animals = [...new Set<string>(animalResponse)];
     return animals;
   } catch (error) {
-    return [];
+    throw error;
   }
 };
 
@@ -25,7 +19,7 @@ const fetchAllUSers = async () => {
     const response = await http.get<UserInterface[]>(dataUrl);
     return response;
   } catch (error) {
-    return [];
+    throw error;
   }
 };
 
