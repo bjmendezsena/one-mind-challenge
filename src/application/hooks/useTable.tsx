@@ -68,7 +68,7 @@ export const useTable = () => {
       ),
     },
     {
-      title: "Action",
+      title: "",
       key: "id",
       render: ({ user }: TableDataItem) => {
         return (

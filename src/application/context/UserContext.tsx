@@ -57,7 +57,7 @@ export const AppProvider = ({ children }: IAppProvider) => {
   }, [users]);
 
   useEffect(() => {
-    if (animals.length) {
+    if (animals.length && !selectedAnimal) {
       setSelectedAnimal(animals[0]);
     }
   }, [animals]);

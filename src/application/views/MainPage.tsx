@@ -46,7 +46,7 @@ export const MainPage = () => {
           <b>
             {form.given}, {form.surname}
           </b>{" "}
-          has been successfully added
+          has been added
         </span>
       ),
     });
