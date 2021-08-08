@@ -6,6 +6,14 @@ export interface UserInterface {
   isActive: boolean;
   age: number;
 }
+export interface UserDTO {
+  given: string;
+  surname: string;
+  points: number;
+  animals: string[];
+  isActive: boolean;
+  age: number;
+}
 
 export interface Name {
   given: string;

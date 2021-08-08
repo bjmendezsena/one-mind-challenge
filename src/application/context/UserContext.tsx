@@ -1,6 +1,10 @@
 import React, { createContext, useReducer, useState } from "react";
 import { useEffect } from "react";
-import { UserInterface, AppState } from "../appInterfaces/appInterfaces";
+import {
+  UserInterface,
+  AppState,
+  UserDTO,
+} from "../appInterfaces/appInterfaces";
 import { fetchAllAnimals, fetchAllUSers } from "../services/dataService";
 import { appReducer } from "./userReducer";
 
@@ -10,7 +14,7 @@ type ContextProps = {
   error: any;
   animals: string[];
   selectedAnimal: string;
-  addUser: (user: UserInterface) => void;
+  addUser: (userData: UserDTO) => void;
   removeUser: (user: UserInterface) => void;
   getAllUsers: () => void;
   getAllAnimals: () => void;
@@ -46,7 +50,16 @@ export const AppProvider = ({ children }: IAppProvider) => {
     }
   }, [animals]);
 
-  const addUser = (user: UserInterface) => {
+  const addUser = (userData: UserDTO) => {
+    const { users } = state;
+    const user: UserInterface = {
+      ...userData,
+      id: `${userData.given}${userData.surname}${users.length}`,
+      name: {
+        given: userData.given,
+        surname: userData.surname,
+      },
+    };
     dispatch({
       type: "ADD_USER",
       payload: user,

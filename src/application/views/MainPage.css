@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 50px;
+  padding: 20px 50px;
+  padding-top: 20px;
 }
 
 .title {
@@ -14,5 +15,5 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  margin-bottom: 30px;
 }

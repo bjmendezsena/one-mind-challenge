@@ -45,14 +45,25 @@ export const useTable = () => {
       key: "animals",
       dataIndex: "animals",
       render: (animals: string[]) => (
-        <>
+        <div>
           {React.Children.toArray(
             animals.map((animal: string) => {
               const color = animal === selectedAnimal ? "blue" : "#9E9E9E";
-              return <Tag color={color}>{animal.toUpperCase()}</Tag>;
+              return (
+                <Space>
+                  <Tag
+                    style={{
+                      borderRadius: 20,
+                    }}
+                    color={color}
+                  >
+                    {animal.toUpperCase()}
+                  </Tag>
+                </Space>
+              );
             })
           )}
-        </>
+        </div>
       ),
     },
     {
