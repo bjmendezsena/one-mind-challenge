@@ -18,7 +18,7 @@ export const UserForm = ({ onChange, values }: IUserFormProps) => {
   return (
     <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal">
       <Form.Item label="Name">
-        <Input.Group compact>
+        <Input.Group>
           <Form.Item
             name={["name", "given"]}
             noStyle

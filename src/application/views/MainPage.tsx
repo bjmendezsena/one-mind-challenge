@@ -50,7 +50,7 @@ export const MainPage = () => {
     });
   };
 
-  const disabledButon = !(
+  const disabledButton = !(
     form.age > 0 &&
     form.given.length > 0 &&
     form.surname.length > 0 &&
@@ -104,7 +104,7 @@ export const MainPage = () => {
         destroyOnClose
         maskClosable={false}
         okButtonProps={{
-          disabled: disabledButon,
+          disabled: disabledButton,
         }}
       >
         <UserForm onChange={onChange} values={form} />

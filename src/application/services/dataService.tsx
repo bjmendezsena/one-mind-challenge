@@ -8,18 +8,18 @@ const fetchAllAnimals = async () => {
     const response = await http.get<UserInterface[]>(dataUrl);
     const animalResponse = response.map((user) => user.animals).flat();
     const animals = [...new Set<string>(animalResponse)];
-    return animals;
+    return [animals, null];
   } catch (error) {
-    throw error;
+    return [null, error];
   }
 };
 
 const fetchAllUSers = async () => {
   try {
     const response = await http.get<UserInterface[]>(dataUrl);
-    return response;
+    return [response, null];
   } catch (error) {
-    throw error;
+    return [null, error];
   }
 };
 

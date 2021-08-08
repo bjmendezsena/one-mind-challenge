@@ -54,6 +54,7 @@ export const useTable = () => {
                   <Tag
                     style={{
                       borderRadius: 20,
+                      marginTop: 10,
                     }}
                     color={color}
                   >

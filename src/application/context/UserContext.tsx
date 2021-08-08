@@ -1,5 +1,4 @@
-import React, { createContext, useReducer, useState } from "react";
-import { useEffect } from "react";
+import React, { createContext, useReducer, useState, useEffect } from "react";
 import {
   UserInterface,
   AppState,
@@ -11,7 +10,7 @@ import { appReducer } from "./userReducer";
 type ContextProps = {
   users: UserInterface[];
   isLoading: boolean;
-  error: any;
+  error: string | null;
   animals: string[];
   selectedAnimal: string;
   addUser: (userData: UserDTO) => void;
@@ -73,45 +72,41 @@ export const AppProvider = ({ children }: IAppProvider) => {
     });
   };
 
-  const getAllUsers = async () => {
+  const getAllAnimals = async () => {
     dispatch({
       type: "START_GET_ANIMALS",
     });
-    try {
-      const animals = await fetchAllAnimals();
-      dispatch({
-        type: "GET_ANIMALS_SUCCEED",
-        payload: animals,
-      });
-    } catch (error) {
-      console.log(error);
-      dispatch({
+    const [animals, error] = await fetchAllAnimals();
+    if (error) {
+      return dispatch({
         type: "GET_ANIMALS_FAILED",
         payload:
           "An unexpected error occurred while trying to display the animals",
       });
     }
+    dispatch({
+      type: "GET_ANIMALS_SUCCEED",
+      payload: animals,
+    });
   };
-  const getAllAnimals = async () => {
+  const getAllUsers = async () => {
     dispatch({
       type: "START_GET_USERS",
     });
 
-    try {
-      const users = await fetchAllUSers();
-
-      dispatch({
-        type: "GET_USERS_SUCCEED",
-        payload: users,
-      });
-    } catch (error) {
-      console.log(error);
-      dispatch({
+    const [users, error] = await fetchAllUSers();
+    if (error) {
+      return dispatch({
         type: "GET_USERS_FAILED",
         payload:
           "An unexpected error occurred while trying to display the users",
       });
     }
+
+    dispatch({
+      type: "GET_USERS_SUCCEED",
+      payload: users,
+    });
   };
 
   return (
