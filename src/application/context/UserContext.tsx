@@ -48,8 +48,12 @@ export const AppProvider = ({ children }: IAppProvider) => {
   const { users } = state;
 
   const animals = useMemo(() => {
-    const animalResponse = users.map((user) => user.animals).flat();
-    return [...new Set<string>(animalResponse)];
+    if (users.length) {
+      const animalResponse = users.map((user) => user.animals).flat();
+      const result = [...new Set<string>(animalResponse)];
+      return result;
+    }
+    return [];
   }, [users]);
 
   useEffect(() => {
