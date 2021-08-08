@@ -18,15 +18,4 @@ export type Action =
   | {
       type: "REMOVE_USER";
       payload: UserInterface;
-    }
-  | {
-      type: "START_GET_ANIMALS";
-    }
-  | {
-      type: "GET_ANIMALS_FAILED";
-      payload: string | null;
-    }
-  | {
-      type: "GET_ANIMALS_SUCCEED";
-      payload: string[];
     };

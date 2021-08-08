@@ -1,4 +1,4 @@
-import { Select, Button, Modal } from "antd";
+import { Select, Button, Modal, notification } from "antd";
 import { PlusCircleTwoTone } from "@ant-design/icons";
 import React, { useContext, useState } from "react";
 import { TableComponent } from "../components/TableComponent";
@@ -15,6 +15,7 @@ export const MainPage = () => {
     useContext(AppContext);
 
   const selectIsLoading = isLoading || selectedAnimal.length === 0;
+
   const handlerAddUserButton = () => {
     setModalVisible(true);
   };
@@ -32,6 +33,23 @@ export const MainPage = () => {
     addUser(form);
     setInitialValues();
     setModalVisible(false);
+    userNotificationAdded();
+  };
+
+  const userNotificationAdded = () => {
+    notification.success({
+      message: "Success!",
+      description: (
+        <span>
+          {" "}
+          User{" "}
+          <b>
+            {form.given}, {form.surname}
+          </b>{" "}
+          has been successfully added
+        </span>
+      ),
+    });
   };
 
   const handleCancelModal = () => {

@@ -3,23 +3,6 @@ import { Action } from "./actions";
 
 export const appReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
-    case "START_GET_ANIMALS":
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case "GET_ANIMALS_FAILED":
-      return {
-        ...state,
-        error: action.payload,
-      };
-    case "GET_ANIMALS_SUCCEED":
-      return {
-        ...state,
-        animals: action.payload,
-        isLoading: false,
-        error: null,
-      };
     case "START_GET_USERS":
       return {
         ...state,

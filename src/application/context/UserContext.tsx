@@ -1,10 +1,16 @@
-import React, { createContext, useReducer, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useReducer,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import {
   UserInterface,
   AppState,
   UserDTO,
 } from "../appInterfaces/appInterfaces";
-import { fetchAllAnimals, fetchAllUSers } from "../services/dataService";
+import { fetchAllUSers } from "../services/dataService";
 import { appReducer } from "./userReducer";
 
 type ContextProps = {
@@ -15,8 +21,6 @@ type ContextProps = {
   selectedAnimal: string;
   addUser: (userData: UserDTO) => void;
   removeUser: (user: UserInterface) => void;
-  getAllUsers: () => void;
-  getAllAnimals: () => void;
   setSelectedAnimal: (animal: string) => void;
 };
 
@@ -40,20 +44,30 @@ export const AppProvider = ({ children }: IAppProvider) => {
 
   useEffect(() => {
     getAllUsers();
-    getAllAnimals();
   }, []);
-  const { animals } = state;
+  const { users } = state;
+
+  const animals = useMemo(() => {
+    const animalResponse = users.map((user) => user.animals).flat();
+    return [...new Set<string>(animalResponse)];
+  }, [users]);
+
   useEffect(() => {
     if (animals.length) {
       setSelectedAnimal(animals[0]);
     }
   }, [animals]);
 
+  /**
+   * Add a new user to the store.
+   *
+   * @param userData Data to add.
+   */
   const addUser = (userData: UserDTO) => {
     const { users } = state;
     const user: UserInterface = {
       ...userData,
-      id: `${userData.given}${userData.surname}${users.length}`,
+      id: `${userData.given.trim()}${userData.surname.trim()}${users.length}`,
       name: {
         given: userData.given,
         surname: userData.surname,
@@ -65,6 +79,11 @@ export const AppProvider = ({ children }: IAppProvider) => {
     });
   };
 
+  /**
+   * Delete a user from the store based on the id of a given user.
+   *
+   * @param user data to delete.
+   */
   const removeUser = (user: UserInterface) => {
     dispatch({
       type: "REMOVE_USER",
@@ -72,23 +91,9 @@ export const AppProvider = ({ children }: IAppProvider) => {
     });
   };
 
-  const getAllAnimals = async () => {
-    dispatch({
-      type: "START_GET_ANIMALS",
-    });
-    const [animals, error] = await fetchAllAnimals();
-    if (error) {
-      return dispatch({
-        type: "GET_ANIMALS_FAILED",
-        payload:
-          "An unexpected error occurred while trying to display the animals",
-      });
-    }
-    dispatch({
-      type: "GET_ANIMALS_SUCCEED",
-      payload: animals,
-    });
-  };
+  /**
+   * Get all the users from the data source.
+   */
   const getAllUsers = async () => {
     dispatch({
       type: "START_GET_USERS",
@@ -115,10 +120,9 @@ export const AppProvider = ({ children }: IAppProvider) => {
         ...state,
         addUser,
         removeUser,
-        getAllUsers,
-        getAllAnimals,
         selectedAnimal,
         setSelectedAnimal,
+        animals,
       }}
     >
       {children}
